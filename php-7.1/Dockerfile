@@ -21,11 +21,7 @@ RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
   && pecl install xdebug \
   && docker-php-ext-enable xdebug \
   && apk del pcre-dev ${PHPIZE_DEPS}
-
-RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
-RUN echo 'xdebug.remote_port=9000' >> /usr/local/etc/php/conf.d/xdebug.ini
-RUN echo 'xdebug.remote_enable=1' >> /usr/local/etc/php/conf.d/xdebug.ini
-RUN echo 'xdebug.remote_connect_back=1' >> /usr/local/etc/php/conf.d/xdebug.ini
+#cat /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 ## add xdebug end
 
 
