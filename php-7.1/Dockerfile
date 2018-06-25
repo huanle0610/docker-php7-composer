@@ -16,6 +16,18 @@ RUN apk add --no-cache libmcrypt-dev freetype libpng libjpeg-turbo freetype-dev 
   NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
   docker-php-ext-install -j${NPROC} gd iconv mcrypt mbstring pdo_mysql
 
+## add xdebug
+RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+  && pecl install xdebug \
+  && docker-php-ext-enable xdebug \
+  && apk del pcre-dev ${PHPIZE_DEPS}
+
+RUN echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini
+RUN echo 'xdebug.remote_port=9000' >> /usr/local/etc/php/conf.d/xdebug.ini
+RUN echo 'xdebug.remote_enable=1' >> /usr/local/etc/php/conf.d/xdebug.ini
+RUN echo 'xdebug.remote_connect_back=1' >> /usr/local/etc/php/conf.d/xdebug.ini
+## add xdebug end
+
 
 # Remove memory limit for PHP-CLI and set timezone
 RUN echo "memory_limit = -1" > /usr/local/etc/php/conf.d/memory-limit.ini \
