@@ -14,7 +14,7 @@ RUN apk add --no-cache libmcrypt-dev freetype libpng libjpeg-turbo freetype-dev 
     --with-png-dir=/usr/include/ \
     --with-jpeg-dir=/usr/include/ && \
   NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-  docker-php-ext-install -j${NPROC} gd iconv mcrypt mbstring pdo_mysql
+  docker-php-ext-install -j${NPROC} gd iconv mcrypt mbstring pdo_mysql bcmath
 
 ## add xdebug
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
