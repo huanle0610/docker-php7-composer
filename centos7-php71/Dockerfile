@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.2.1511
 MAINTAINER huanle0160 <huanle0610@gmail.com>
 
 RUN yum -C install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm http://rpms.remirepo.net/enterprise/remi-release-7.rpm 
